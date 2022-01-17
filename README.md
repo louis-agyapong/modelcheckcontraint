@@ -1,3 +1,2 @@
-# Django Project Template
+# Django Model Check Constraint
 
-Django project template
