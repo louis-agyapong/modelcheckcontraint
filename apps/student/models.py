@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 
@@ -18,6 +19,7 @@ class Student(models.Model):
     teacher = models.CharField(_("teacher"), max_length=255)
 
     class Meta:
+        constraints = [models.CheckConstraint(check=Q(age__gte=10) & Q(age__lte=20), name="age_range")]
         verbose_name = _("student")
         verbose_name_plural = _("students")
 
