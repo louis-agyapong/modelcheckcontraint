@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -19,9 +20,13 @@ class Student(models.Model):
     teacher = models.CharField(_("teacher"), max_length=255)
 
     class Meta:
-        constraints = [models.CheckConstraint(check=Q(age__gte=10) & Q(age__lte=20), name="age_range")]
+        constraints = [models.CheckConstraint(check=Q(age__gte=10) & Q(age__lte=20), name="age contraint")]
         verbose_name = _("student")
         verbose_name_plural = _("students")
+
+    def clean(self):
+        if self.age > 20 or self.age < 10:
+            raise ValidationError({"age": _("Age must be less than 20")})
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
