@@ -20,7 +20,7 @@ class Student(models.Model):
     teacher = models.CharField(_("teacher"), max_length=255)
 
     class Meta:
-        constraints = [models.CheckConstraint(check=Q(age__gte=10) & Q(age__lte=20), name="age contraint")]
+        constraints = [models.CheckConstraint(check=Q(age__gte=10) & Q(age__lte=20), name="age_10_20")]
         verbose_name = _("student")
         verbose_name_plural = _("students")
 
